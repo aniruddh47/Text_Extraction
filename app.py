@@ -15,7 +15,6 @@ uploaded_file = st.file_uploader("Upload an image (jpg/png) or PDF", type=["jpg"
 lang = st.selectbox("Choose OCR language(s)", ["en", "en+hi", "en+fr", "fr", "hi", "mr"])
 is_handwritten = st.checkbox("Is this handwritten text?")
 
-# ✨ Clean Tesseract output a bit
 def clean_ocr_text(text):
     lines = text.split("\n")
     cleaned = []
@@ -28,7 +27,6 @@ def clean_ocr_text(text):
         cleaned.append(line)
     return "\n".join(cleaned)
 
-# Extract handwritten text
 def extract_handwritten_text_tesseract(pil_image):
     gray = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2GRAY)
     gray = cv2.adaptiveThreshold(
@@ -40,7 +38,6 @@ def extract_handwritten_text_tesseract(pil_image):
     cleaned_text = clean_ocr_text(raw_text)
     return raw_text, cleaned_text
 
-# PaddleOCR result sorting
 def extract_text_sorted_by_position(result):
     lines = []
     if result and isinstance(result[0], list):
@@ -56,14 +53,12 @@ def extract_text_sorted_by_position(result):
         return "\n".join(line[2] for line in lines)
     return ""
 
-# Show OCR boxes
 def show_detected_boxes(image_np, result):
     for line in result[0]:
         points = np.array(line[0], dtype=np.int32)
         cv2.polylines(image_np, [points], isClosed=True, color=(0, 255, 0), thickness=2)
     st.image(image_np, caption="📌 Detected Text Regions", use_column_width=True)
 
-# PaddleOCR processing
 def preprocess_and_ocr(pil_image, ocr_engine, temp_filename="temp.png"):
     img_np = np.array(pil_image.convert("RGB"))
     gray = cv2.cvtColor(img_np, cv2.COLOR_RGB2GRAY)
@@ -73,7 +68,6 @@ def preprocess_and_ocr(pil_image, ocr_engine, temp_filename="temp.png"):
     show_detected_boxes(img_np.copy(), result)
     return extract_text_sorted_by_position(result)
 
-# 🔍 OCR Starts here
 if uploaded_file:
     with st.spinner("Extracting text..."):
         extracted_raw = ""
@@ -130,4 +124,9 @@ if uploaded_file:
             mime="text/plain"
         )
     else:
-        st.error("❌ No text detected! Try improving image clarity.")
+        st.error("❌ No text detected! Try improving image clarity.")
+
+# ↓ For Render/Streamlit compatibility
+if __name__ == "__main__":
+    st.set_option('server.enableCORS', False)
+    st.set_option('server.enableXsrfProtection', False)
