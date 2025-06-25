@@ -74,7 +74,7 @@ if uploaded_file:
         extracted_clean = ""
 
         if not is_handwritten:
-            ocr = PaddleOCR(use_angle_cls=True, lang=lang, show_log=False)
+            ocr = PaddleOCR(use_angle_cls=True, lang=lang,)
 
         if uploaded_file.type == "application/pdf":
             st.info("📄 Processing PDF...")
