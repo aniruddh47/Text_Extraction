@@ -6,4 +6,4 @@ opencv-python-headless
 pillow
 pytesseract
 tqdm
-paddlepaddle==2.5.2 -f https://paddlepaddle.org.cn/whl/paddle_cpu.html
+paddlepaddle==2.5.2 ; python_version < "3.13" --find-links https://paddlepaddle.org.cn/whl/paddle_cpu.html
