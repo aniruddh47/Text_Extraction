@@ -74,7 +74,7 @@ if uploaded_file:
         extracted_clean = ""
 
         if not is_handwritten:
-            ocr = PaddleOCR(use_angle_cls=True, lang=lang,)
+            ocr = PaddleOCR(use_angle_cls=True, lang=lang)
 
         if uploaded_file.type == "application/pdf":
             st.info("📄 Processing PDF...")
@@ -125,8 +125,3 @@ if uploaded_file:
         )
     else:
         st.error("❌ No text detected! Try improving image clarity.")
-
-# ↓ For Render/Streamlit compatibility
-if __name__ == "__main__":
-    st.set_option('server.enableCORS', False)
-    st.set_option('server.enableXsrfProtection', False)
