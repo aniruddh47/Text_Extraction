@@ -1,5 +1,6 @@
 streamlit
 paddleocr
+paddlepaddle==2.5.2     # or latest CPU version
 pdf2image
 opencv-python-headless
 pytesseract
