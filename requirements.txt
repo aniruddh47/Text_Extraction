@@ -1,8 +1,9 @@
 streamlit
 paddleocr
-paddlepaddle==2.5.2     # or latest CPU version
 pdf2image
-opencv-python-headless
-pytesseract
-Pillow
 numpy
+opencv-python-headless
+pillow
+pytesseract
+tqdm
+paddlepaddle==2.5.2; python_version < "3.13"
